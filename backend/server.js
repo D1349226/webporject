@@ -16,6 +16,12 @@ const JWT_SECRET = process.env.JWT_SECRET || 'campus-lost-found-secret-key';
 app.use(cors({ origin: FRONTEND_URL }));
 app.use(express.json());
 
+// ── 生產環境：服務前端打包檔 ─────────────────────────────
+const publicDir = path.join(__dirname, 'public');
+if (fs.existsSync(publicDir)) {
+    app.use(express.static(publicDir));
+}
+
 // ── 靜態檔案 ──────────────────────────────────────────────
 const uploadsDir = path.join(__dirname, 'uploads');
 app.use('/uploads', express.static(uploadsDir));
@@ -380,5 +386,12 @@ app.post('/api/claims', authMiddleware, (req, res) => {
         });
     });
 });
+
+// ── 生產環境：所有非 API 路由回傳 index.html ─────────────
+if (fs.existsSync(publicDir)) {
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(publicDir, 'index.html'));
+    });
+}
 
 app.listen(PORT, () => console.log(`後端伺服器正運行於 http://localhost:${PORT}`));
