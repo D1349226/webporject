@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(cat backend/.gitignore)",
+      "Bash(cat .gitignore)",
+      "Bash(npx vue-tsc *)",
+      "Bash(npx vite *)",
+      "PowerShell(Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue)",
+      "Bash(curl -s -m 3 http://localhost:3000/api/items)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(curl -s -m 3 -o /dev/null -w \"%{http_code}\" http://localhost:5173/)",
+      "Bash(node server.js)",
+      "Bash(npm run *)",
+      "PowerShell(Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue })",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  }
+}
